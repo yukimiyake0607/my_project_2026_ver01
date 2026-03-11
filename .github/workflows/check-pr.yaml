@@ -3,6 +3,10 @@ name: check-pr
 on:
   pull_request:
 
+permissions:
+  contents: read
+  checks: write
+
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -12,10 +16,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Read Flutter version from .fvmrc
+        id: fvm
+        run: echo "FLUTTER_VERSION=$(jq -r '.flutter' .fvmrc)" >> "$GITHUB_OUTPUT"
+
       - name: Setup flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version-file: .fvmrc
+          flutter-version: ${{ steps.fvm.outputs.FLUTTER_VERSION }}
 
       - name: Install dependencies
         run: flutter pub get
@@ -27,12 +35,13 @@ jobs:
         run: flutter analyze
 
       - name: Run tests
+        id: test
         run: flutter test --machine > test_report.log
         continue-on-error: true
 
       - name: Report test results
         uses: dorny/test-reporter@v1
-        if: always()
+        if: steps.test.conclusion != 'skipped'
         with:
           name: 'flutter test'
           path: 'test_report.log'
