@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_project_2026_ver01/src/features/analysis/analysis_screen.dart';
 import 'package:my_project_2026_ver01/src/features/mypage/mypage_screen.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/todo_list_screen.dart';
 
@@ -10,7 +11,11 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
-  final List<Widget> _pages = [const TodoListScreen(), const MypageScreen()];
+  final List<Widget> _pages = [
+    const TodoListScreen(),
+    const MypageScreen(),
+    const AnalysisScreen(),
+  ];
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,10 @@ class _RootScreenState extends State<RootScreen> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Todo'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Mypage'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.analytics),
+            label: 'Analysis',
+          ),
         ],
         onTap: (index) {
           setState(() {
