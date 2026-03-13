@@ -45,4 +45,11 @@ class TodoListScreenController extends _$TodoListScreenController {
 
     state = state.where((todo) => todo.id != todoId).toList();
   }
+
+  /// タスクを更新するメソッドです。
+  void updateTodo(Todo updatedTodo) {
+    state = state.map((todo) {
+      return todo.id == updatedTodo.id ? updatedTodo : todo;
+    }).toList();
+  }
 }

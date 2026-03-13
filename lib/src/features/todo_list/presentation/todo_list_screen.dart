@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_project_2026_ver01/src/features/todo_list/domain/todo.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/presentation/components/add_todo_dialog.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/presentation/components/todo_empty_screen.dart';
+import 'package:my_project_2026_ver01/src/features/todo_list/presentation/components/update_todo_dialog.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/presentation/todo_list_screen_controller.dart';
 
 class TodoListScreen extends ConsumerWidget {
@@ -15,9 +17,17 @@ class TodoListScreen extends ConsumerWidget {
     /// FAB押下時の処理です。
     ///
     /// バリデーションはControllerで行う。
-    void onFloatingActionButtonPressed() async {
+    Future<void> onFloatingActionButtonPressed() async {
       final title = await AddTodoDialog.show(context);
       ref.read(todoListScreenControllerProvider.notifier).addTodo(title);
+    }
+
+    Future<void> onTodoTilePressed(Todo todo) async {
+      final updatedTodo = await UpdateTodoDialog.show(context, todo);
+      if (updatedTodo == null) return;
+      ref
+          .read(todoListScreenControllerProvider.notifier)
+          .updateTodo(updatedTodo);
     }
 
     return Scaffold(
@@ -29,6 +39,9 @@ class TodoListScreen extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final todo = todos[index];
                   return ListTile(
+                    onTap: () {
+                      onTodoTilePressed(todo);
+                    },
                     leading: Checkbox(
                       value: todo.isDone,
                       onChanged: (_) {
