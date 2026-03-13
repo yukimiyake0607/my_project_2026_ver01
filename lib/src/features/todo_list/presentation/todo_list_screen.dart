@@ -13,7 +13,7 @@ class TodoListScreen extends ConsumerWidget {
     final hasTodo = todos.isNotEmpty;
 
     /// FAB押下時の処理です。
-    /// 
+    ///
     /// バリデーションはControllerで行う。
     void onFloatingActionButtonPressed() async {
       final title = await AddTodoDialog.show(context);
@@ -38,6 +38,14 @@ class TodoListScreen extends ConsumerWidget {
                       },
                     ),
                     title: Text(todo.title),
+                    trailing: IconButton(
+                      onPressed: () {
+                        ref
+                            .read(todoListScreenControllerProvider.notifier)
+                            .deleteTodo(todo.id);
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
                   );
                 },
                 separatorBuilder: (_, __) => const Divider(),

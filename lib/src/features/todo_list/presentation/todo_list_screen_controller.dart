@@ -36,4 +36,13 @@ class TodoListScreenController extends _$TodoListScreenController {
       return todo.id == todoId ? todo.copyWith(isDone: !todo.isDone) : todo;
     }).toList();
   }
+
+  /// タスクを削除するメソッドです。
+  ///
+  /// バリデーションはControllerで行う。
+  void deleteTodo(String? todoId) {
+    if (todoId == null) return;
+
+    state = state.where((todo) => todo.id != todoId).toList();
+  }
 }
