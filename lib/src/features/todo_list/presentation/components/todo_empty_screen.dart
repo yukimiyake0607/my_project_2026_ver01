@@ -14,7 +14,13 @@ class TodoEmptyScreen extends StatelessWidget {
           Image.asset(
             _emptyImagePath,
             fit: BoxFit.contain,
-            errorBuilder: (context, error, stackTrace) => const Text('no'),
+            errorBuilder: (context, error, stackTrace) => const Column(
+              children: [
+                Icon(Icons.image_not_supported_outlined),
+                SizedBox(height: 8),
+                Text('画像を読み込めませんでした'),
+              ],
+            ),
             semanticLabel: 'Todo empty',
           ),
           const SizedBox(height: 16),
