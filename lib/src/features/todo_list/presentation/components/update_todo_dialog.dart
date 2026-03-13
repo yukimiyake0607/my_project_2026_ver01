@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:my_project_2026_ver01/src/features/todo_list/domain/todo.dart';
 
 class UpdateTodoDialog {
   UpdateTodoDialog._();
 
-  static Future<Todo?> show(BuildContext context, Todo todo) {
-    return showDialog<Todo?>(
+  static Future<String?> show(BuildContext context, String id) {
+    return showDialog<String?>(
       context: context,
-      builder: (context) => _UpdateTodoDialogContent(todo: todo),
+      builder: (context) => _UpdateTodoDialogContent(id: id),
     );
   }
 }
 
 class _UpdateTodoDialogContent extends StatefulWidget {
-  const _UpdateTodoDialogContent({required this.todo});
-  final Todo todo;
+  const _UpdateTodoDialogContent({required this.id});
+  final String id;
 
   @override
   State<_UpdateTodoDialogContent> createState() =>
@@ -53,14 +52,7 @@ class _UpdateTodoDialogContentState extends State<_UpdateTodoDialogContent> {
           onPressed: () {
             final title = _controller.text.trim();
             if (title.isEmpty) return;
-            Navigator.pop(
-              context,
-              Todo(
-                id: widget.todo.id,
-                title: title,
-                isDone: widget.todo.isDone,
-              ),
-            );
+            Navigator.pop(context, title);
           },
           child: const Text('更新'),
         ),

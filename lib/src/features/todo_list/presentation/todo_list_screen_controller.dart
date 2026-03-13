@@ -47,9 +47,13 @@ class TodoListScreenController extends _$TodoListScreenController {
   }
 
   /// タスクを更新するメソッドです。
-  void updateTodo(Todo updatedTodo) {
+  void updateTodo(String? id, String? title) {
+    if (id == null || title == null) return;
+    final trimmedTitle = title.trim();
+    if (trimmedTitle.isEmpty) return;
+
     state = state.map((todo) {
-      return todo.id == updatedTodo.id ? updatedTodo : todo;
+      return todo.id == id ? todo.copyWith(title: trimmedTitle) : todo;
     }).toList();
   }
 }
