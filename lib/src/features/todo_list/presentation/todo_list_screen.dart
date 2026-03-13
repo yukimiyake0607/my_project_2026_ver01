@@ -18,13 +18,14 @@ class TodoListScreen extends ConsumerWidget {
     /// バリデーションはControllerで行う。
     Future<void> onFloatingActionButtonPressed() async {
       final title = await AddTodoDialog.show(context);
+      if (!context.mounted) return;
       ref.read(todoListScreenControllerProvider.notifier).addTodo(title);
     }
 
     /// タスクタイル押下時の処理です。
     Future<void> onTodoTilePressed(String id) async {
       final updatedTitle = await UpdateTodoDialog.show(context, id);
-      if (updatedTitle == null) return;
+      if (updatedTitle == null || !context.mounted) return;
       ref
           .read(todoListScreenControllerProvider.notifier)
           .updateTodo(id, updatedTitle);
