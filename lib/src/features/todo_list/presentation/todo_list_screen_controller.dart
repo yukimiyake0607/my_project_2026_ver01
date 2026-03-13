@@ -23,4 +23,11 @@ class TodoListScreenController extends _$TodoListScreenController {
     );
     state = [...state, newTodo];
   }
+
+  void toggleTodo(String? todoId) {
+    if (todoId == null) return;
+    state = state.map((todo) {
+      return todo.id == todoId ? todo.copyWith(isDone: !todo.isDone) : todo;
+    }).toList();
+  }
 }

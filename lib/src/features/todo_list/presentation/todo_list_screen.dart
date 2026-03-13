@@ -29,8 +29,10 @@ class TodoListScreen extends ConsumerWidget {
                   return ListTile(
                     leading: Checkbox(
                       value: todo.isDone,
-                      onChanged: (value) {
-                        return;
+                      onChanged: (_) {
+                        ref
+                            .read(todoListScreenControllerProvider.notifier)
+                            .toggleTodo(todo.id);
                       },
                     ),
                     title: Text(todo.title),
