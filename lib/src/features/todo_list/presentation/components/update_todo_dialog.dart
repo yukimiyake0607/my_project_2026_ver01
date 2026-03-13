@@ -5,23 +5,20 @@ class UpdateTodoDialog {
 
   static Future<String?> show(
     BuildContext context,
-    String id,
     String currentTitle,
   ) {
     return showDialog<String?>(
       context: context,
       builder: (context) =>
-          _UpdateTodoDialogContent(id: id, currentTitle: currentTitle),
+          _UpdateTodoDialogContent(currentTitle: currentTitle),
     );
   }
 }
 
 class _UpdateTodoDialogContent extends StatefulWidget {
   const _UpdateTodoDialogContent({
-    required this.id,
     required this.currentTitle,
   });
-  final String id;
   final String currentTitle;
 
   @override
