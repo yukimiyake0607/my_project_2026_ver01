@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/presentation/components/add_todo_dialog.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/presentation/components/todo_empty_screen.dart';
+import 'package:my_project_2026_ver01/src/features/todo_list/presentation/components/update_todo_dialog.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/presentation/todo_list_screen_controller.dart';
 
 class TodoListScreen extends ConsumerWidget {
@@ -12,10 +13,22 @@ class TodoListScreen extends ConsumerWidget {
     final todos = ref.watch(todoListScreenControllerProvider);
     final hasTodo = todos.isNotEmpty;
 
-    /// FAB押下時の処理
-    void onFloatingActionButtonPressed() async {
+    /// FAB押下時の処理です。
+    ///
+    /// バリデーションはControllerで行う。
+    Future<void> onFloatingActionButtonPressed() async {
       final title = await AddTodoDialog.show(context);
+      if (!context.mounted) return;
       ref.read(todoListScreenControllerProvider.notifier).addTodo(title);
+    }
+
+    /// タスクタイル押下時の処理です。
+    Future<void> onTodoTilePressed(String id, String currentTitle) async {
+      final updatedTitle = await UpdateTodoDialog.show(context, currentTitle);
+      if (updatedTitle == null || !context.mounted) return;
+      ref
+          .read(todoListScreenControllerProvider.notifier)
+          .updateTodo(id, updatedTitle);
     }
 
     return Scaffold(
@@ -27,13 +40,26 @@ class TodoListScreen extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final todo = todos[index];
                   return ListTile(
+                    onTap: () {
+                      onTodoTilePressed(todo.id, todo.title);
+                    },
                     leading: Checkbox(
                       value: todo.isDone,
-                      onChanged: (value) {
-                        return;
+                      onChanged: (_) {
+                        ref
+                            .read(todoListScreenControllerProvider.notifier)
+                            .toggleTodo(todo.id);
                       },
                     ),
                     title: Text(todo.title),
+                    trailing: IconButton(
+                      onPressed: () {
+                        ref
+                            .read(todoListScreenControllerProvider.notifier)
+                            .deleteTodo(todo.id);
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
                   );
                 },
                 separatorBuilder: (_, __) => const Divider(),
