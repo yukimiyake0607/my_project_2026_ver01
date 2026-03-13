@@ -9,14 +9,13 @@ class TodoListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todos = ref.watch(todoListScreenControllerProvider);
-    final hasTodo = todos.isEmpty;
+    final hasTodo = todos.isNotEmpty;
     return Scaffold(
       appBar: AppBar(title: const Text('Todo List')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: hasTodo
-            ? const TodoEmptyScreen()
-            : ListView.separated(
+            ? ListView.separated(
                 itemBuilder: (context, index) {
                   final todo = todos[index];
                   return ListTile(
@@ -31,7 +30,8 @@ class TodoListScreen extends ConsumerWidget {
                 },
                 separatorBuilder: (_, __) => const Divider(),
                 itemCount: todos.length,
-              ),
+              )
+            : const TodoEmptyScreen(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
