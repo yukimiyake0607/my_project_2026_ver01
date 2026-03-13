@@ -11,6 +11,9 @@ class TodoListScreenController extends _$TodoListScreenController {
     return [];
   }
 
+  /// タスクを追加するメソッドです。
+  ///
+  /// バリデーションはControllerで行う。
   void addTodo(String? todoTitle) {
     if (todoTitle == null) return;
     final trimmedTodoTitle = todoTitle.trim();
@@ -24,6 +27,9 @@ class TodoListScreenController extends _$TodoListScreenController {
     state = [...state, newTodo];
   }
 
+  /// タスクの完了状態を切り替えるメソッドです。
+  ///
+  /// バリデーションはControllerで行う。
   void toggleTodo(String? todoId) {
     if (todoId == null) return;
     state = state.map((todo) {
