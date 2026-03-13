@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:my_project_2026_ver01/src/features/todo_list/domain/todo.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/presentation/components/add_todo_dialog.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/presentation/components/todo_empty_screen.dart';
 import 'package:my_project_2026_ver01/src/features/todo_list/presentation/components/update_todo_dialog.dart';
