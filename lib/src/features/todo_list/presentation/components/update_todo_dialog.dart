@@ -3,18 +3,26 @@ import 'package:flutter/material.dart';
 class UpdateTodoDialog {
   UpdateTodoDialog._();
 
-  static Future<String?> show(BuildContext context, String id, String title) {
+  static Future<String?> show(
+    BuildContext context,
+    String id,
+    String currentTitle,
+  ) {
     return showDialog<String?>(
       context: context,
-      builder: (context) => _UpdateTodoDialogContent(id: id, title: title),
+      builder: (context) =>
+          _UpdateTodoDialogContent(id: id, currentTitle: currentTitle),
     );
   }
 }
 
 class _UpdateTodoDialogContent extends StatefulWidget {
-  const _UpdateTodoDialogContent({required this.id, required this.title});
+  const _UpdateTodoDialogContent({
+    required this.id,
+    required this.currentTitle,
+  });
   final String id;
-  final String title;
+  final String currentTitle;
 
   @override
   State<_UpdateTodoDialogContent> createState() =>
@@ -28,7 +36,7 @@ class _UpdateTodoDialogContentState extends State<_UpdateTodoDialogContent> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
-    _controller.text = widget.title;
+    _controller.text = widget.currentTitle;
   }
 
   @override

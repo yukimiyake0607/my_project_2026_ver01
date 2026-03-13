@@ -23,8 +23,12 @@ class TodoListScreen extends ConsumerWidget {
     }
 
     /// タスクタイル押下時の処理です。
-    Future<void> onTodoTilePressed(String id, String title) async {
-      final updatedTitle = await UpdateTodoDialog.show(context, id, title);
+    Future<void> onTodoTilePressed(String id, String currentTitle) async {
+      final updatedTitle = await UpdateTodoDialog.show(
+        context,
+        id,
+        currentTitle,
+      );
       if (updatedTitle == null || !context.mounted) return;
       ref
           .read(todoListScreenControllerProvider.notifier)
