@@ -32,8 +32,7 @@ class _UpdateTodoDialogContentState extends State<_UpdateTodoDialogContent> {
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
-    _controller.text = widget.currentTitle;
+    _controller = TextEditingController(text: widget.currentTitle);
   }
 
   @override
