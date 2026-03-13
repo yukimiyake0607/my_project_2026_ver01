@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:my_project_2026_ver01/src/features/todo_list/domain/todo.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:my_project_2026_ver01/src/features/todo_list/presentation/todo_list_screen_controller.dart';
 
-class TodoListScreen extends StatefulWidget {
+class TodoListScreen extends ConsumerWidget {
   const TodoListScreen({super.key});
 
   @override
-  State<TodoListScreen> createState() => _TodoListScreenState();
-}
-
-class _TodoListScreenState extends State<TodoListScreen> {
-  List<Todo> todos = [
-    Todo(id: '1', title: 'Todo 1', isDone: false),
-    Todo(id: '2', title: 'Todo 2', isDone: false),
-    Todo(id: '3', title: 'Todo 3', isDone: false),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todos = ref.watch(todoListScreenControllerProvider);
     return Scaffold(
       appBar: AppBar(title: const Text('Todo List')),
       body: Padding(
@@ -34,9 +25,7 @@ class _TodoListScreenState extends State<TodoListScreen> {
               title: Text(todo.title),
             );
           },
-          separatorBuilder: (context, index) {
-            return const Divider();
-          },
+          separatorBuilder: (_, __) => const Divider(),
           itemCount: todos.length,
         ),
       ),
