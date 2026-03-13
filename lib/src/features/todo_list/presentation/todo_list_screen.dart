@@ -12,7 +12,9 @@ class TodoListScreen extends ConsumerWidget {
     final todos = ref.watch(todoListScreenControllerProvider);
     final hasTodo = todos.isNotEmpty;
 
-    /// FAB押下時の処理
+    /// FAB押下時の処理です。
+    /// 
+    /// バリデーションはControllerで行う。
     void onFloatingActionButtonPressed() async {
       final title = await AddTodoDialog.show(context);
       ref.read(todoListScreenControllerProvider.notifier).addTodo(title);
