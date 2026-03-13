@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_project_2026_ver01/src/features/analysis/analysis_screen.dart';
 import 'package:my_project_2026_ver01/src/features/mypage/mypage_screen.dart';
-import 'package:my_project_2026_ver01/src/features/todo_list/todo_list_screen.dart';
+import 'package:my_project_2026_ver01/src/features/todo_list/presentation/todo_list_screen.dart';
 
 class RootScreen extends StatefulWidget {
   const RootScreen({super.key});
