@@ -15,7 +15,6 @@ class TodoListScreen extends ConsumerWidget {
     /// FAB押下時の処理
     void onFloatingActionButtonPressed() async {
       final title = await AddTodoDialog.show(context);
-      if (title == null || title.isEmpty) return;
       ref.read(todoListScreenControllerProvider.notifier).addTodo(title);
     }
 

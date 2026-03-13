@@ -11,8 +11,16 @@ class TodoListScreenController extends _$TodoListScreenController {
     return [];
   }
 
-  void addTodo(String todoTitle) {
-    final newTodo = Todo(id: Uuid().v4(), title: todoTitle, isDone: false);
+  void addTodo(String? todoTitle) {
+    if (todoTitle == null) return;
+    final trimmedTodoTitle = todoTitle.trim();
+    if (trimmedTodoTitle.isEmpty) return;
+
+    final newTodo = Todo(
+      id: Uuid().v4(),
+      title: trimmedTodoTitle,
+      isDone: false,
+    );
     state = [...state, newTodo];
   }
 }

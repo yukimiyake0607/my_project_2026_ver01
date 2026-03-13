@@ -51,9 +51,7 @@ class _AddTodoDialogContentState extends State<_AddTodoDialogContent> {
         TextButton(
           onPressed: () {
             final title = _controller.text.trim();
-            if (title.isNotEmpty) {
-              Navigator.pop(context, title);
-            }
+            Navigator.pop(context, title);
           },
           child: const Text('追加'),
         ),
